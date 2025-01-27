@@ -9,8 +9,8 @@
         public DateOnly BirthDate { get; set; }
         public char Gender { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string Password { get; set; } = string.Empty;
-        public IEnumerable<UsersRolesModel> usersRoles { get; set; }
+        public ICollection<UsersRolesModel> usersroles { get; set; }
     }
 }

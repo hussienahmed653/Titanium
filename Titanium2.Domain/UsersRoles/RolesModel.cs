@@ -4,6 +4,6 @@
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; } = string.Empty;
-        public IEnumerable<UsersRolesModel> usersRoles { get; set; }
+        public ICollection<UsersRolesModel> usersroles { get; set; }
     }
 }

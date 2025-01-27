@@ -10,15 +10,15 @@ namespace Titanium2.Infrastructure.UserRoleRepo
         {
             builder.HasKey(ur => new { ur.UserId, ur.RoleId });
 
-            builder.HasOne(ur => ur.User)
-                .WithMany(ur => ur.usersRoles)
-                .HasForeignKey(ur => ur.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(ur => ur.User)
+            //    .WithMany(ur => ur.usersroles)
+            //    .HasForeignKey(ur => ur.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(ur => ur.Role)
-                .WithMany(ur => ur.usersRoles)
-                .HasForeignKey(ur => ur.RoleId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(ur => ur.Role)
+            //    .WithMany(ur => ur.usersroles)
+            //    .HasForeignKey(ur => ur.RoleId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
