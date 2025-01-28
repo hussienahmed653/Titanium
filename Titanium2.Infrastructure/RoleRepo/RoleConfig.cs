@@ -9,12 +9,6 @@ namespace Titanium2.Infrastructure.RoleRepo
         public void Configure(EntityTypeBuilder<RolesModel> builder)
         {
             builder.HasKey(r => r.RoleId);
-            //builder.Property(u => u.usersroles).HasDefaultValue(new List<UsersRolesModel> { new UsersRolesModel() { RoleId = 3 } });
-
-            //builder.HasMany(r => r.usersroles)
-            //    .WithOne(r => r.Role)
-            //    .HasForeignKey(r => r.RoleId)
-            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

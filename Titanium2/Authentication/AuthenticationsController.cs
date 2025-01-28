@@ -40,7 +40,9 @@ namespace Titanium2.Api.Authontication
         {
             var token = await _jwtLogin.UserLogin(userLogin);
             if(token is not null)
-                return Ok(token);
+                return Ok(new 
+                {   Token = token,
+                    Errors = "No Errors Found"});
             return BadRequest("Your Login credential don't match an acount in our system.");
         }
 
@@ -61,7 +63,7 @@ namespace Titanium2.Api.Authontication
         }
 
         [Authorize(Roles = "1")]
-        [HttpDelete]
+        [HttpDelete("RemoveRoleFromUser")]
         public async Task<IActionResult> RemoveRoleFromUser(string email, int roleid)
         {
             try

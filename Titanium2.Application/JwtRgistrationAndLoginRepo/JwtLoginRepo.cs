@@ -16,7 +16,7 @@ namespace Titanium2.Application.JwtRgistrationAndLoginRepo
 
         public async Task<string> UserLogin(UserLoginDTO userLogin)
         {
-            var getuserbyemail = await _userRepo.GetUserByEmail(userLogin.UserName);
+            var getuserbyemail = await _userRepo.GetUserByEmail(userLogin.Email);
             if (getuserbyemail is not null && (getuserbyemail.Password == userLogin.password))
             {
                 var roleid = getuserbyemail.usersroles.Select(ur => ur.RoleId).ToList();
