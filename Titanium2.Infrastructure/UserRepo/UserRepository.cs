@@ -73,25 +73,75 @@ namespace Titanium2.Infrastructure.UserRepo
                     return false;
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine($"Error, {ex.Message}");
                 return false;
             }    
         }
 
         public async Task<bool> AddRolesToUser(string email, int roleid)
         {
-            var data = await GetUserByEmail(email);
-            var role = new UsersRolesModel
+            try
             {
-                UserId = data.UserId,
-                RoleId = roleid,
-            };
-            await _context.usersroles.AddAsync(role);
-            var rowsaffected = await _context.SaveChangesAsync();
-            if(rowsaffected == 0)
+                var data = await GetUserByEmail(email);
+                if(data is null)
+                {
+                    Console.WriteLine("No Data Found With This Email!");
+                    return false;
+                }
+                var existingroleid = await _context.usersroles.AnyAsync(r => r.RoleId == roleid);
+                if(!existingroleid)
+                {
+                    Console.WriteLine("No RoleId Found");
+                    return false;
+                }
+                var role = new UsersRolesModel
+                {
+                    UserId = data.UserId,
+                    RoleId = roleid,
+                };
+                await _context.usersroles.AddAsync(role);
+                var rowsaffected = await _context.SaveChangesAsync();
+                if (rowsaffected == 0)
+                    return false;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error, {ex.Message}");
                 return false;
-            return true;
+            }
+        }
+
+        public async Task<bool> DeleteRoleFromUser(string email, int roleid)
+        {
+            try
+            {
+                var data = await GetUserByEmail(email);
+                if (data is null)
+                {
+                    Console.WriteLine("No Data Found With This Email!");
+                    return false;
+                }
+                var existingroleid = await _context.usersroles
+                    .FirstOrDefaultAsync(r => r.RoleId == roleid && r.UserId == data.UserId);
+                if (existingroleid is null)
+                {
+                    Console.WriteLine("No RoleId Found");
+                    return false;
+                }
+                _context.usersroles.Remove(existingroleid);
+                var rowsaffected = await _context.SaveChangesAsync();
+                if (rowsaffected == 0)
+                    return false;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error, {ex.Message}");
+                return false;
+            }
         }
     }
 }

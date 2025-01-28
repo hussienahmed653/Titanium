@@ -20,6 +20,7 @@ namespace Titanium2.Infrastructure
             services.AddScoped<IJwtServices, JwtServics>();
             services.AddScoped<IUserRepo, UserRepository>();
             services.AddScoped<JwtRegistrationRepo>();
+            services.AddScoped<JwtRemoveRoleFromUser>();
             services.AddScoped<JwtLoginRepo>();
 
             var connection = configuration.GetConnectionString("Defaultconnection");

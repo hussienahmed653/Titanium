@@ -9,5 +9,6 @@ namespace Titanium2.Domain.UserRepo
         public Task<bool> CheckEmail(string email);
         public Task<bool> AddUser(UsersModel users);
         public Task<bool> AddRolesToUser(string email, int roleid);
+        public Task<bool> DeleteRoleFromUser(string email, int roleid);
     }
 }

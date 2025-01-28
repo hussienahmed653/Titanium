@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Titanium2.Application;
 using Titanium2.Application.JwtRgistrationAndLoginRepo;
@@ -11,11 +12,13 @@ namespace Titanium2.Api.Authontication
     {
         JwtRegistrationRepo _jwtRegistration;
         JwtLoginRepo _jwtLogin;
+        JwtRemoveRoleFromUser _jwtremoverolefromuser;
 
-        public AuthenticationsController(JwtRegistrationRepo jwtRegistration, JwtLoginRepo jwtLogin)
+        public AuthenticationsController(JwtRegistrationRepo jwtRegistration, JwtLoginRepo jwtLogin, JwtRemoveRoleFromUser jwtremoverolefromuser)
         {
             _jwtRegistration = jwtRegistration;
             _jwtLogin = jwtLogin;
+            _jwtremoverolefromuser = jwtremoverolefromuser;
         }
 
         [HttpPost("Registeration")]
@@ -23,8 +26,9 @@ namespace Titanium2.Api.Authontication
         {
             try
             {
-                await _jwtRegistration.UserRegister(userRegister);
-                return Ok(userRegister);
+                if(await _jwtRegistration.UserRegister(userRegister))
+                    return Ok("User added successfully");
+                return BadRequest("Can't add this user");
             }
             catch (Exception ex)
             {
@@ -37,9 +41,10 @@ namespace Titanium2.Api.Authontication
             var token = await _jwtLogin.UserLogin(userLogin);
             if(token is not null)
                 return Ok(token);
-            return BadRequest("No Token Validation Found");
+            return BadRequest("Your Login credential don't match an acount in our system.");
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost("AddRoleToUser")]
         public async Task<IActionResult> AddRoleToUser(string email, int roleid)
         {
@@ -48,6 +53,22 @@ namespace Titanium2.Api.Authontication
                 if(await _jwtRegistration.AddRoleToUser(email, roleid))
                     return Ok("Role added to user");
                 return BadRequest("Can't add this role");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error, {ex.Message}");
+            }
+        }
+
+        [Authorize(Roles = "1")]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveRoleFromUser(string email, int roleid)
+        {
+            try
+            {
+                if (await _jwtremoverolefromuser.RemoveRoleFromUser(email, roleid))
+                    return Ok("Role removed successfully");
+                return BadRequest("Can't remove this role maybe this user don't have this role");
             }
             catch (Exception ex)
             {
