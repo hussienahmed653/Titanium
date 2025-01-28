@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Titanium2.Domain.Category;
+using Titanium2.Domain.Product;
 using Titanium2.Domain.UsersRoles;
 namespace Titanium2.Infrastructure.AppDbContext
 {
@@ -19,5 +21,7 @@ namespace Titanium2.Infrastructure.AppDbContext
         public DbSet<UsersModel> users { get; set; }
         public DbSet<RolesModel> roles { get; set; }
         public DbSet<UsersRolesModel> usersroles { get; set; }
+        public DbSet<CategoryModel> Category { get; set; }
+        public DbSet<ProductModel> Product { get; set; }
     }
 }

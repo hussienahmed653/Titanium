@@ -1,6 +1,6 @@
 ﻿using Titanium2.Domain.UserRepo;
 
-namespace Titanium2.Application.JwtRgistrationAndLoginRepo
+namespace Titanium2.Application.Services.JwtRgistrationAndLoginRepo
 {
     public class JwtRemoveRoleFromUser
     {
@@ -13,7 +13,7 @@ namespace Titanium2.Application.JwtRgistrationAndLoginRepo
 
         public async Task<bool> RemoveRoleFromUser(string email, int roleid)
         {
-            if(await _userRepo.DeleteRoleFromUser(email, roleid))
+            if (await _userRepo.DeleteRoleFromUser(email, roleid))
                 return true;
             return false;
         }

@@ -3,7 +3,7 @@ using Titanium2.Domain;
 using Titanium2.Domain.UserRepo;
 using Titanium2.Domain.UsersRoles;
 
-namespace Titanium2.Application.JwtRgistrationAndLoginRepo
+namespace Titanium2.Application.Services.JwtRgistrationAndLoginRepo
 {
     public class JwtRegistrationRepo
     {
@@ -17,7 +17,7 @@ namespace Titanium2.Application.JwtRgistrationAndLoginRepo
         {
             var hasemail = await _userrepo.CheckEmail(userRegister.Email);
             var checkpassword = await _userrepo.CheckPassword(userRegister.Password);
-            if(hasemail || checkpassword || (userRegister.Password != userRegister.ConfirmPassword))
+            if (hasemail || checkpassword || userRegister.Password != userRegister.ConfirmPassword)
                 return false;
             var user = new UsersModel
             {
@@ -30,7 +30,7 @@ namespace Titanium2.Application.JwtRgistrationAndLoginRepo
                 Gender = userRegister.Gender,
             };
             var added = await _userrepo.AddUser(user);
-            if(added)
+            if (added)
                 return true;
             return false;
         }
@@ -38,10 +38,10 @@ namespace Titanium2.Application.JwtRgistrationAndLoginRepo
         public async Task<bool> AddRoleToUser(string email, int roleid)
         {
             var added = await _userrepo.AddRolesToUser(email, roleid);
-            if(added)
+            if (added)
                 return true;
             return false;
         }
-        
+
     }
 }

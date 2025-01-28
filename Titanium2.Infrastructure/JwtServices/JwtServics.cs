@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Titanium2.Application;
+using Titanium2.Application.Interfaces.JwtInterfaces;
 
 namespace Titanium2.Infrastructure.JwtServices
 {

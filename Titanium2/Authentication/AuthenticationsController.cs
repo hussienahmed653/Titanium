@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Titanium2.Application;
-using Titanium2.Application.JwtRgistrationAndLoginRepo;
+using Titanium2.Application.Services.JwtRgistrationAndLoginRepo;
 
 namespace Titanium2.Api.Authontication
 {
