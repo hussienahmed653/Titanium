@@ -30,14 +30,6 @@ namespace Titanium2.Infrastructure
             services.AddScoped<ICategoryRepoitory, CategoryRepository>();
             services.AddScoped<CategoryServices>();
 
-
-            //services.AddAuthorization(option =>
-            //{
-            //    option.AddPolicy("Role1OrRole2", policy =>
-            //    policy.RequireAssertion(context =>
-            //    context.User.IsInRole("1") || context.User.IsInRole("2")));
-            //});
-
             var connection = configuration.GetConnectionString("Defaultconnection");
             services.AddDbContext<ApplicationDbContext>(option =>
             {
