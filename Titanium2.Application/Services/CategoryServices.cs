@@ -23,14 +23,17 @@ namespace Titanium2.Application.Services
             var category = await _category.GetCategoryByName(name);
             return category;
         }
+
         public async Task<bool> AddCategory(CategoryDTO categoryDTO)
         {
             return await _category.AddCategory(categoryDTO);
         }
+
         public async Task<bool> UpdateCategory(int? id, string categoryname)
         {
             return await _category.UpdateCategory(id, categoryname);
         }
+
         public async Task<bool> DeleteCategory(int id)
         {
             return await _category.DeleteCategory(id);

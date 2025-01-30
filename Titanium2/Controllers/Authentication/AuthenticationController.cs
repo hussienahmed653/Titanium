@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Titanium2.Application;
 using Titanium2.Application.Services.JwtRgistrationAndLoginRepo;
 
-namespace Titanium2.Api.Authontication
+namespace Titanium2.Api.Controllers.Authentication
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,7 +26,7 @@ namespace Titanium2.Api.Authontication
         {
             try
             {
-                if(await _jwtRegistration.UserRegister(userRegister))
+                if (await _jwtRegistration.UserRegister(userRegister))
                     return Ok("User added successfully");
                 return BadRequest("Can't add this user");
             }
@@ -39,10 +39,12 @@ namespace Titanium2.Api.Authontication
         public async Task<IActionResult> UserLogin(UserLoginDTO userLogin)
         {
             var token = await _jwtLogin.UserLogin(userLogin);
-            if(token is not null)
-                return Ok(new 
-                {   Token = token,
-                    Errors = "No Errors Found"});
+            if (token is not null)
+                return Ok(new
+                {
+                    Token = token,
+                    Errors = "No Errors Found"
+                });
             return BadRequest("Your Login credential don't match an acount in our system.");
         }
 
@@ -52,7 +54,7 @@ namespace Titanium2.Api.Authontication
         {
             try
             {
-                if(await _jwtRegistration.AddRoleToUser(email, roleid))
+                if (await _jwtRegistration.AddRoleToUser(email, roleid))
                     return Ok("Role added to user");
                 return BadRequest("Can't add this role");
             }

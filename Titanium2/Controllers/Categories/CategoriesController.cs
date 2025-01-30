@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Titanium2.Application;
 using Titanium2.Application.Services;
 
-namespace Titanium2.Api.Categories
+namespace Titanium2.Api.Controllers.Categories
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,7 +23,7 @@ namespace Titanium2.Api.Categories
             try
             {
                 var datacategory = await _categoryServices.GetAllCategories();
-                if(datacategory.Count is 0)
+                if (datacategory.Count is 0)
                     return NotFound("No Data Found.");
                 return Ok(datacategory);
             }
@@ -54,7 +54,7 @@ namespace Titanium2.Api.Categories
             try
             {
                 var added = await _categoryServices.AddCategory(categoryDTO);
-                if(!added)
+                if (!added)
                     return BadRequest("Can't add this category");
                 return Ok("Added successfully.");
             }
@@ -74,13 +74,13 @@ namespace Titanium2.Api.Categories
                     return BadRequest("Can't Update This category!");
                 return Ok("Updated Successfully.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest($"Error, {ex.Message}");
             }
         }
 
-        [Authorize(Roles =("1,2"))]
+        [Authorize(Roles = "1,2")]
         [HttpDelete("DeleteCategory")]
         public async Task<IActionResult> DeleteCategory(int id)
         {

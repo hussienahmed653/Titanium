@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,13 +6,17 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Titanium2.Application;
 using Titanium2.Application.Interfaces.CategoryInterfaces;
+using Titanium2.Application.Interfaces.IImageInterface;
 using Titanium2.Application.Interfaces.JwtInterfaces;
+using Titanium2.Application.Interfaces.ProductInterfaces;
 using Titanium2.Application.Services;
 using Titanium2.Application.Services.JwtRgistrationAndLoginRepo;
 using Titanium2.Domain.UserRepo;
 using Titanium2.Infrastructure.AppDbContext;
 using Titanium2.Infrastructure.CategoryRepo;
 using Titanium2.Infrastructure.JwtServices;
+using Titanium2.Infrastructure.ProductRepo;
+using Titanium2.Infrastructure.ProductRepo.ImageRepo;
 using Titanium2.Infrastructure.UserRepo;
 
 namespace Titanium2.Infrastructure
@@ -29,6 +32,10 @@ namespace Titanium2.Infrastructure
             services.AddScoped<JwtLoginRepo>();
             services.AddScoped<ICategoryRepoitory, CategoryRepository>();
             services.AddScoped<CategoryServices>();
+            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IproductRepoitory, ProductRepository>();
+            services.AddScoped<ProductServices>();
+
 
             var connection = configuration.GetConnectionString("Defaultconnection");
             services.AddDbContext<ApplicationDbContext>(option =>
