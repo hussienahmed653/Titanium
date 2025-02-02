@@ -32,7 +32,8 @@ namespace Titanium2.Infrastructure
             services.AddScoped<JwtLoginRepo>();
             services.AddScoped<ICategoryRepoitory, CategoryRepository>();
             services.AddScoped<CategoryServices>();
-            services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IImageService, ImageReposetory>();
+            services.AddScoped<ImageServices>();
             services.AddScoped<IproductRepoitory, ProductRepository>();
             services.AddScoped<ProductServices>();
 

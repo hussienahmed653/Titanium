@@ -11,17 +11,14 @@ namespace Titanium2.Infrastructure.ProductRepo
     public class ProductRepository : IproductRepoitory
     {
         ApplicationDbContext _context;
-        IImageService _imageService;
 
-        public ProductRepository(ApplicationDbContext context, IImageService imageService)
+        public ProductRepository(ApplicationDbContext context)
         {
             _context = context;
-            _imageService = imageService;
         }
 
         public async Task<bool> AddProduct(ProductDTO product)
         {
-            //var imagepath = await _imageService.UplodeImage(product.ImagePath, product.CategoryId);
             var lastid = await _context.Product.AnyAsync() ? await _context.Product.MaxAsync(p => p.ProductId) : 0;
             var newproduct = new ProductModel
             {
@@ -29,7 +26,6 @@ namespace Titanium2.Infrastructure.ProductRepo
                 ProductName = product.ProductName,
                 Description = product.Description,
                 Price = product.Price,
-                //ImagePath = imagepath,
                 CategoryId = product.CategoryId,
             };
             await _context.Product.AddAsync(newproduct);
@@ -50,27 +46,31 @@ namespace Titanium2.Infrastructure.ProductRepo
 
         public async Task<List<ProductModel>> GetAllProducts()
         {
-            var product = await _context.Product
-            .Select(p => new ProductModel
+            var products = await _context.Product
+        .Select(p => new ProductModel
+        {
+            ProductId = p.ProductId,
+            ProductGuid = p.ProductGuid,
+            ProductName = p.ProductName,
+            Description = p.Description,
+            Price = p.Price,
+            CategoryId = p.CategoryId
+        })
+        .ToListAsync(); // ✅ جلب المنتجات أولاً بدون الملفات
+
+            foreach (var product in products)
             {
-                ProductId = p.ProductId,
-                ProductGuid = p.ProductGuid,
-                ProductName = p.ProductName,
-                Description = p.Description,
-                Price = p.Price,
-                CategoryId = p.CategoryId,
-                FilePath = _context.Files
-                    .Where(f => f.FolderGuid == p.ProductGuid)
+                product.FilePath = await _context.Files
+                    .Where(f => f.FolderGuid == product.ProductGuid)
                     .Select(f => new FileModel
-                    { 
+                    {
                         FilePath = f.FilePath,
                         Extention = f.Extention,
                         Size = f.Size
                     })
-                    .ToList()
-            })
-            .ToListAsync();
-            return product;
+                    .ToListAsync();
+            }
+            return products;
         }
 
         public async Task<ProductModel> GetProductByName(string name)
@@ -101,23 +101,13 @@ namespace Titanium2.Infrastructure.ProductRepo
 
         public async Task<bool> UpdateProduct(ProductDTO product)
         {
-            //string image = string.Empty;
             var myproduct = await _context.Product.SingleOrDefaultAsync(p => p.ProductGuid == product.ProductGuid);
-            //if (product.ImagePath != null)
-            //{
-            //    image = await _imageService.UplodeImage(product.ImagePath, myproduct.CategoryId);
-            //}
-            //else
-            //{
-            //    //image = myproduct.ImagePath;
-            //}
             var updateproduct = new ProductModel
             {
                 ProductId = myproduct.ProductId,
                 ProductName = product.ProductName ?? myproduct.ProductName,
                 Description = product.Description ?? myproduct.Description,
                 Price = product.Price != default ? product.Price : myproduct.Price,
-                //ImagePath = image,
                 CategoryId = product.CategoryId != default ? product.CategoryId : myproduct.CategoryId,
             };
             return await _context.SaveChangesAsync() > 0;
