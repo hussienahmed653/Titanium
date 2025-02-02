@@ -77,11 +77,11 @@ namespace Titanium2.Api.Controllers.Product
             }
         }
         [HttpDelete("DeleteProduct")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(Guid guid)
         {
             try
             {
-                var deleted = await _productsService.DeleteProduct(id);
+                var deleted = await _productsService.DeleteProduct(guid);
                 if (!deleted)
                     return BadRequest("Can't Delete this product.");
                 return Ok("Deleted successfully");

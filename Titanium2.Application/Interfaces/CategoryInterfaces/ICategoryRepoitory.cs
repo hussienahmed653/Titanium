@@ -7,7 +7,7 @@ namespace Titanium2.Application.Interfaces.CategoryInterfaces
         public Task<List<CategoryModel>> GetAllCategory();
         public Task<CategoryModel> GetCategoryByName(string categoryname);
         public Task<bool> AddCategory(CategoryDTO category);
-        public Task<bool> UpdateCategory(int? id, string categoryname);
-        public Task<bool> DeleteCategory(int id);
+        public Task<bool> UpdateCategory(Guid guid, string categoryname);
+        public Task<bool> DeleteCategory(Guid guid);
     }
 }

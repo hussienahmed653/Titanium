@@ -29,14 +29,14 @@ namespace Titanium2.Application.Services
             return await _category.AddCategory(categoryDTO);
         }
 
-        public async Task<bool> UpdateCategory(int? id, string categoryname)
+        public async Task<bool> UpdateCategory(Guid guid, string categoryname)
         {
-            return await _category.UpdateCategory(id, categoryname);
+            return await _category.UpdateCategory(guid, categoryname);
         }
 
-        public async Task<bool> DeleteCategory(int id)
+        public async Task<bool> DeleteCategory(Guid guid)
         {
-            return await _category.DeleteCategory(id);
+            return await _category.DeleteCategory(guid);
         }
     }
 }

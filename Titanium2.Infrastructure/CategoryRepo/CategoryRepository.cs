@@ -41,9 +41,9 @@ namespace Titanium2.Infrastructure.CategoryRepo
             }
         }
 
-        public async Task<bool> DeleteCategory(int id)
+        public async Task<bool> DeleteCategory(Guid guid)
         {
-            var datacategory = await _context.Category.FindAsync(id);
+            var datacategory = await _context.Category.FindAsync(guid);
             if (datacategory == null)
             {
                 Console.WriteLine("No Data Was Found With This Id");
@@ -63,9 +63,9 @@ namespace Titanium2.Infrastructure.CategoryRepo
             return await _context.Category.SingleOrDefaultAsync(c => c.CategoryName == categoryname);
         }
 
-        public async Task<bool> UpdateCategory(int? id, string categoryname)
+        public async Task<bool> UpdateCategory(Guid guid, string categoryname)
         {
-            var datacategory = await _context.Category.FindAsync(id);
+            var datacategory = await _context.Category.SingleOrDefaultAsync(c => c.CategoryGuid == guid);
             if (datacategory == null)
             {
                 Console.WriteLine("No Data Was Found With This Id");

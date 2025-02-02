@@ -8,6 +8,6 @@ namespace Titanium2.Application.Interfaces.ProductInterfaces
         public Task<ProductModel> GetProductByName(string name);
         public Task<bool> AddProduct(ProductDTO product);
         public Task<bool> UpdateProduct(ProductDTO product);
-        public Task<bool> DeleteProduct(int productid);
+        public Task<bool> DeleteProduct(Guid guid);
     }
 }

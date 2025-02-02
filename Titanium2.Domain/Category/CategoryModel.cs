@@ -5,6 +5,7 @@ namespace Titanium2.Domain.Category
     public class CategoryModel
     {
         public int CategoryId { get; set; }
+        public Guid CategoryGuid { get; set; } = Guid.NewGuid();
         public string CategoryName { get; set; } = string.Empty;
         public ICollection<ProductModel> product { get; set; }
     }

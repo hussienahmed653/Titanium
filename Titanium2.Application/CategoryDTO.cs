@@ -2,7 +2,7 @@
 {
     public class CategoryDTO
     {
-        public int? CategoryId { get; set; }
+        public Guid CategoryGuid { get; set; } = Guid.NewGuid();
         public string Categoryname { get; set; } = string.Empty;
     }
 }

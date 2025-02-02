@@ -14,9 +14,9 @@ using Titanium2.Application.Services.JwtRgistrationAndLoginRepo;
 using Titanium2.Domain.UserRepo;
 using Titanium2.Infrastructure.AppDbContext;
 using Titanium2.Infrastructure.CategoryRepo;
+using Titanium2.Infrastructure.ImageRepo;
 using Titanium2.Infrastructure.JwtServices;
 using Titanium2.Infrastructure.ProductRepo;
-using Titanium2.Infrastructure.ProductRepo.ImageRepo;
 using Titanium2.Infrastructure.UserRepo;
 
 namespace Titanium2.Infrastructure

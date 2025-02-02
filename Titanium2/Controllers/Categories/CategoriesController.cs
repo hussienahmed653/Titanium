@@ -69,7 +69,7 @@ namespace Titanium2.Api.Controllers.Categories
         {
             try
             {
-                var updated = await _categoryServices.UpdateCategory(categoryDTO.CategoryId, categoryDTO.Categoryname);
+                var updated = await _categoryServices.UpdateCategory(categoryDTO.CategoryGuid, categoryDTO.Categoryname);
                 if (!updated)
                     return BadRequest("Can't Update This category!");
                 return Ok("Updated Successfully.");
@@ -82,11 +82,11 @@ namespace Titanium2.Api.Controllers.Categories
 
         [Authorize(Roles = "1,2")]
         [HttpDelete("DeleteCategory")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(Guid guid)
         {
             try
             {
-                var deleted = await _categoryServices.DeleteCategory(id);
+                var deleted = await _categoryServices.DeleteCategory(guid);
                 if (!deleted)
                     return BadRequest("Can't Delete this category!");
                 return Ok("Deleted Successfully.");

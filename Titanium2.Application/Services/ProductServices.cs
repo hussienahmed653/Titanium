@@ -32,9 +32,9 @@ namespace Titanium2.Application.Services
             return await _prosuctrepo.UpdateProduct(productDTO);
         }
 
-        public async Task<bool> DeleteProduct(int id)
+        public async Task<bool> DeleteProduct(Guid guid)
         {
-            return await _prosuctrepo.DeleteProduct(id);
+            return await _prosuctrepo.DeleteProduct(guid);
         }
     }
 }

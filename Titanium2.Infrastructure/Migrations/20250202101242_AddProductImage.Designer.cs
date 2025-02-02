@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Titanium2.Infrastructure.AppDbContext;
@@ -11,9 +12,11 @@ using Titanium2.Infrastructure.AppDbContext;
 namespace Titanium2.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250202101242_AddProductImage")]
+    partial class AddProductImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,33 +40,6 @@ namespace Titanium2.Infrastructure.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("Titanium2.Domain.File.FileModel", b =>
-                {
-                    b.Property<int>("FileId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Extention")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("FileGuid")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("FolderGuid")
-                        .HasColumnType("uuid");
-
-                    b.Property<double>("Size")
-                        .HasColumnType("double precision");
-
-                    b.HasKey("FileId");
-
-                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("Titanium2.Domain.Product.ProductModel", b =>
@@ -93,6 +69,28 @@ namespace Titanium2.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Titanium2.Domain.ProductImage.ProductImageModel", b =>
+                {
+                    b.Property<int>("ProductImageId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("ProductImageGuid")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ProductImageId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("Titanium2.Domain.UsersRoles.RolesModel", b =>
@@ -187,6 +185,17 @@ namespace Titanium2.Infrastructure.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Titanium2.Domain.ProductImage.ProductImageModel", b =>
+                {
+                    b.HasOne("Titanium2.Domain.Product.ProductModel", "Product")
+                        .WithMany("ImagePath")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Titanium2.Domain.UsersRoles.UsersRolesModel", b =>
                 {
                     b.HasOne("Titanium2.Domain.UsersRoles.RolesModel", "Role")
@@ -209,6 +218,11 @@ namespace Titanium2.Infrastructure.Migrations
             modelBuilder.Entity("Titanium2.Domain.Category.CategoryModel", b =>
                 {
                     b.Navigation("product");
+                });
+
+            modelBuilder.Entity("Titanium2.Domain.Product.ProductModel", b =>
+                {
+                    b.Navigation("ImagePath");
                 });
 
             modelBuilder.Entity("Titanium2.Domain.UsersRoles.RolesModel", b =>
