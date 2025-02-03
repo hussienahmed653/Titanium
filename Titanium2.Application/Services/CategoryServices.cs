@@ -5,9 +5,9 @@ namespace Titanium2.Application.Services
 {
     public class CategoryServices
     {
-        ICategoryRepoitory _category;
+        ICategoryInterface _category;
 
-        public CategoryServices(ICategoryRepoitory category)
+        public CategoryServices(ICategoryInterface category)
         {
             _category = category;
         }

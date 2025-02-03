@@ -1,13 +1,13 @@
-﻿using Titanium2.Application.Interfaces.IImageInterface;
+﻿using Titanium2.Application.Interfaces.ImageInterface;
 using Titanium2.Domain.File;
 
 namespace Titanium2.Application.Services
 {
     public class ImageServices
     {
-        IImageService _imageServices;
+        IImageInterface _imageServices;
 
-        public ImageServices(IImageService imageServices)
+        public ImageServices(IImageInterface imageServices)
         {
             _imageServices = imageServices;
         }

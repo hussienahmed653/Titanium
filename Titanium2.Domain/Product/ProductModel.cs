@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Titanium2.Domain.Category;
 using Titanium2.Domain.File;
+using Titanium2.Domain.Stock;
 
 namespace Titanium2.Domain.Product
 {
@@ -15,5 +16,6 @@ namespace Titanium2.Domain.Product
         public List<FileModel>? FilePath { get; set; }
         public int CategoryId { get; set; }
         public CategoryModel Category { get; set; }
+        public StockModel Stock { get; set; }
     }
 }

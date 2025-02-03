@@ -5,9 +5,9 @@ namespace Titanium2.Application.Services
 {
     public class ProductServices
     {
-        IproductRepoitory _prosuctrepo;
+        IproductInterface _prosuctrepo;
 
-        public ProductServices(IproductRepoitory prosuctrepo)
+        public ProductServices(IproductInterface prosuctrepo)
         {
             _prosuctrepo = prosuctrepo;
         }

@@ -2,7 +2,7 @@
 
 namespace Titanium2.Application.Interfaces.ProductInterfaces
 {
-    public interface IproductRepoitory
+    public interface IproductInterface
     {
         public Task<List<ProductModel>> GetAllProducts();
         public Task<ProductModel> GetProductByName(string name);

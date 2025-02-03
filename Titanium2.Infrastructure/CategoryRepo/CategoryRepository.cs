@@ -6,7 +6,7 @@ using Titanium2.Infrastructure.AppDbContext;
 
 namespace Titanium2.Infrastructure.CategoryRepo
 {
-    public class CategoryRepository : ICategoryRepoitory
+    public class CategoryRepository : ICategoryInterface
     {
         ApplicationDbContext _context;
 

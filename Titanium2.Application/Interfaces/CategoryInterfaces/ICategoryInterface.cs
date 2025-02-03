@@ -2,7 +2,7 @@
 
 namespace Titanium2.Application.Interfaces.CategoryInterfaces
 {
-    public interface ICategoryRepoitory
+    public interface ICategoryInterface
     {
         public Task<List<CategoryModel>> GetAllCategory();
         public Task<CategoryModel> GetCategoryByName(string categoryname);

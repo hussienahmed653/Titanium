@@ -6,9 +6,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Titanium2.Application;
 using Titanium2.Application.Interfaces.CategoryInterfaces;
-using Titanium2.Application.Interfaces.IImageInterface;
+using Titanium2.Application.Interfaces.ImageInterface;
 using Titanium2.Application.Interfaces.JwtInterfaces;
 using Titanium2.Application.Interfaces.ProductInterfaces;
+using Titanium2.Application.Interfaces.StockInterface;
 using Titanium2.Application.Services;
 using Titanium2.Application.Services.JwtRgistrationAndLoginRepo;
 using Titanium2.Domain.UserRepo;
@@ -17,6 +18,7 @@ using Titanium2.Infrastructure.CategoryRepo;
 using Titanium2.Infrastructure.ImageRepo;
 using Titanium2.Infrastructure.JwtServices;
 using Titanium2.Infrastructure.ProductRepo;
+using Titanium2.Infrastructure.StockRepo;
 using Titanium2.Infrastructure.UserRepo;
 
 namespace Titanium2.Infrastructure
@@ -30,12 +32,14 @@ namespace Titanium2.Infrastructure
             services.AddScoped<JwtRegistrationRepo>();
             services.AddScoped<JwtRemoveRoleFromUser>();
             services.AddScoped<JwtLoginRepo>();
-            services.AddScoped<ICategoryRepoitory, CategoryRepository>();
+            services.AddScoped<ICategoryInterface, CategoryRepository>();
             services.AddScoped<CategoryServices>();
-            services.AddScoped<IImageService, ImageReposetory>();
+            services.AddScoped<IImageInterface, ImageReposetory>();
             services.AddScoped<ImageServices>();
-            services.AddScoped<IproductRepoitory, ProductRepository>();
+            services.AddScoped<IproductInterface, ProductRepository>();
             services.AddScoped<ProductServices>();
+            services.AddScoped<ISockInterface, StockRepository>();
+            services.AddScoped<StockServices>();
 
 
             var connection = configuration.GetConnectionString("Defaultconnection");

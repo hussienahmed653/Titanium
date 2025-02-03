@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Xml.Linq;
 using Titanium2.Application;
-using Titanium2.Application.Interfaces.IImageInterface;
+using Titanium2.Application.Interfaces.ImageInterface;
 using Titanium2.Application.Interfaces.ProductInterfaces;
 using Titanium2.Domain.File;
 using Titanium2.Domain.Product;
@@ -9,7 +10,7 @@ using Titanium2.Infrastructure.AppDbContext;
 
 namespace Titanium2.Infrastructure.ProductRepo
 {
-    public class ProductRepository : IproductRepoitory
+    public class ProductRepository : IproductInterface
     {
         ApplicationDbContext _context;
 
@@ -100,15 +101,15 @@ namespace Titanium2.Infrastructure.ProductRepo
 
         public async Task<bool> UpdateProduct(ProductDTO product)
         {
-            var myproduct = await _context.Product.SingleOrDefaultAsync(p => p.ProductGuid == product.ProductGuid);
-            var updateproduct = new ProductModel
-            {
-                ProductId = myproduct.ProductId,
-                ProductName = product.ProductName ?? myproduct.ProductName,
-                Description = product.Description ?? myproduct.Description,
-                Price = product.Price != default ? product.Price : myproduct.Price,
-                CategoryId = product.CategoryId != default ? product.CategoryId : myproduct.CategoryId,
-            };
+            var myproduct = await _context.Product.AsNoTracking()
+                .SingleOrDefaultAsync(p => p.ProductGuid == product.ProductGuid);
+
+            myproduct.ProductId = myproduct.ProductId;
+            myproduct.ProductName = !string.IsNullOrEmpty(product.ProductName) ? product.ProductName : myproduct.ProductName;
+            myproduct.Description = !string.IsNullOrEmpty(product.Description) ? product.Description : myproduct.Description;
+            myproduct.Price = product.Price > 0 ? product.Price : myproduct.Price;
+            myproduct.CategoryId = product.CategoryId > 0 ? product.CategoryId : myproduct.CategoryId;
+            _context.Product.Update(myproduct);
             return await _context.SaveChangesAsync() > 0;
         }
     }
