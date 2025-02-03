@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Titanium2.Application;
 using Titanium2.Application.Services;
@@ -15,7 +16,8 @@ namespace Titanium2.Api.Controllers.Image
         {
             _imageServices = imageServices;
         }
-        [HttpPost]
+        [Authorize(Roles = "1,2")]
+        [HttpPost("AddFile")]
         public async Task<IActionResult> AddFile(FileDTO fileDTO)
         {
             try
@@ -23,7 +25,23 @@ namespace Titanium2.Api.Controllers.Image
                 var filepath = await _imageServices.AddFile(fileDTO);
                 if (filepath is null)
                     return BadRequest("Can't add this path");
-                return Ok(filepath);
+                return Ok("File added successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error, {ex.Message}");
+            }
+        }
+        [Authorize(Roles = "1,2")]
+        [HttpDelete("DeleteFile")]
+        public async Task<IActionResult> RemoveFile(Guid guid)
+        {
+            try
+            {
+                var deleted = await _imageServices.RemoveFile(guid);
+                if (!deleted)
+                    return BadRequest("Can't remove this file!");
+                return Ok("Deleted successfully.");
             }
             catch (Exception ex)
             {

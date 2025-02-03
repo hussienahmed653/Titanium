@@ -56,6 +56,7 @@ namespace Titanium2.Infrastructure.ImageRepo
             {
                 FileId = lastid+1,
                 FilePath = path,
+                FolderGuid = fileDTO.FolderGuid,
                 Extention = extention,
                 Size = filesizeinMB
             };
@@ -64,6 +65,28 @@ namespace Titanium2.Infrastructure.ImageRepo
             if(affected > 0)
                 return path;
             return null;
+        }
+
+        public async Task<bool> DeleteImage(Guid fileguid)
+        {
+            var file = await _context.Files.FirstOrDefaultAsync(f => f.FileGuid == fileguid);
+
+            if (file == null)
+                throw new Exception("File not found!");
+
+            var filepath = Path.Combine(file.FilePath);
+
+            if(System.IO.File.Exists(filepath))
+            {
+                _context.Files.Remove(file);
+                var affected = await _context.SaveChangesAsync();
+                if(affected > 0)
+                {
+                    System.IO.File.Delete(filepath);
+                    return true;
+                }
+            }
+                return false;
         }
     }
 }

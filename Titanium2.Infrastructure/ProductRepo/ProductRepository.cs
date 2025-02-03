@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 using Titanium2.Application;
 using Titanium2.Application.Interfaces.IImageInterface;
 using Titanium2.Application.Interfaces.ProductInterfaces;
@@ -47,29 +48,27 @@ namespace Titanium2.Infrastructure.ProductRepo
         public async Task<List<ProductModel>> GetAllProducts()
         {
             var products = await _context.Product
-        .Select(p => new ProductModel
-        {
-            ProductId = p.ProductId,
-            ProductGuid = p.ProductGuid,
-            ProductName = p.ProductName,
-            Description = p.Description,
-            Price = p.Price,
-            CategoryId = p.CategoryId
-        })
-        .ToListAsync(); // ✅ جلب المنتجات أولاً بدون الملفات
-
-            foreach (var product in products)
-            {
-                product.FilePath = await _context.Files
-                    .Where(f => f.FolderGuid == product.ProductGuid)
+                .Select(p => new ProductModel
+                {
+                    ProductId = p.ProductId,
+                    ProductGuid = p.ProductGuid,
+                    ProductName = p.ProductName,
+                    Description = p.Description,
+                    Price = p.Price,
+                    CategoryId = p.CategoryId,
+                    FilePath = _context.Files
+                    .Where(f => f.FolderGuid == p.ProductGuid)
                     .Select(f => new FileModel
                     {
+                        FileId = f.FileId,
+                        FileGuid = f.FileGuid,
                         FilePath = f.FilePath,
                         Extention = f.Extention,
                         Size = f.Size
                     })
-                    .ToListAsync();
-            }
+                    .ToList()
+                })
+                .ToListAsync();
             return products;
         }
 
