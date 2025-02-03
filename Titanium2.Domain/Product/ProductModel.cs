@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Titanium2.Domain.Category;
 using Titanium2.Domain.File;
 using Titanium2.Domain.Stock;

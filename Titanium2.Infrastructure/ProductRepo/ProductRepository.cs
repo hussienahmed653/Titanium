@@ -6,6 +6,7 @@ using Titanium2.Application.Interfaces.ImageInterface;
 using Titanium2.Application.Interfaces.ProductInterfaces;
 using Titanium2.Domain.File;
 using Titanium2.Domain.Product;
+using Titanium2.Domain.Stock;
 using Titanium2.Infrastructure.AppDbContext;
 
 namespace Titanium2.Infrastructure.ProductRepo
@@ -57,6 +58,15 @@ namespace Titanium2.Infrastructure.ProductRepo
                     Description = p.Description,
                     Price = p.Price,
                     CategoryId = p.CategoryId,
+                    Stock = _context.Stock.Where(s => s.ProductId == p.ProductId)
+                    .Select(s => new StockModel
+                    {
+                            StockId = s.StockId,
+                            StockGuid = s.StockGuid,
+                            ProductId = s.ProductId,
+                            Quantity = s.Quantity,
+                    })
+                    .SingleOrDefault(),
                     FilePath = _context.Files
                     .Where(f => f.FolderGuid == p.ProductGuid)
                     .Select(f => new FileModel
@@ -85,6 +95,15 @@ namespace Titanium2.Infrastructure.ProductRepo
                     Description = p.Description,
                     Price = p.Price,
                     CategoryId = p.CategoryId,
+                    Stock = _context.Stock.Where(s => s.ProductId == p.ProductId)
+                    .Select(s => new StockModel
+                    {
+                        StockId = s.StockId,
+                        StockGuid = s.StockGuid,
+                        ProductId = s.ProductId,
+                        Quantity = s.Quantity,
+                    })
+                    .SingleOrDefault(),
                     FilePath = _context.Files
                     .Where(f => f.FolderGuid == p.ProductGuid)
                     .Select (f => new FileModel

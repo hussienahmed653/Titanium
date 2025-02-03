@@ -11,15 +11,6 @@ namespace Titanium2.Application.Services
         {
             _SockInterface = sockInterface;
         }
-        public async Task<List<StockModel>> GetAllData()
-        {
-            return await _SockInterface.GetAllProductInStock();
-        }
-        public async Task<List<StockModel>> GetAllDataByName(string name)
-        {
-            return await _SockInterface.GetProductInStockByName(name);
-        }
-
         public async Task<bool> AddInStock(Guid guid, int quantity)
         {
             return await _SockInterface.AddProductInStock(guid, quantity);

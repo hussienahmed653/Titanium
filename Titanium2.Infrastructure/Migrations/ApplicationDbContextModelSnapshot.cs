@@ -36,7 +36,7 @@ namespace Titanium2.Infrastructure.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("Titanium2.Domain.File.FileModel", b =>
@@ -63,7 +63,7 @@ namespace Titanium2.Infrastructure.Migrations
 
                     b.HasKey("FileId");
 
-                    b.ToTable("Files");
+                    b.ToTable("Files", (string)null);
                 });
 
             modelBuilder.Entity("Titanium2.Domain.Product.ProductModel", b =>
@@ -92,7 +92,7 @@ namespace Titanium2.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("Titanium2.Domain.Stock.StockModel", b =>
@@ -114,7 +114,7 @@ namespace Titanium2.Infrastructure.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Stock");
+                    b.ToTable("Stock", (string)null);
                 });
 
             modelBuilder.Entity("Titanium2.Domain.UsersRoles.RolesModel", b =>
@@ -131,7 +131,7 @@ namespace Titanium2.Infrastructure.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("roles");
+                    b.ToTable("roles", (string)null);
                 });
 
             modelBuilder.Entity("Titanium2.Domain.UsersRoles.UsersModel", b =>
@@ -180,7 +180,7 @@ namespace Titanium2.Infrastructure.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("Titanium2.Domain.UsersRoles.UsersRolesModel", b =>
@@ -195,7 +195,7 @@ namespace Titanium2.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("usersroles");
+                    b.ToTable("usersroles", (string)null);
                 });
 
             modelBuilder.Entity("Titanium2.Domain.Product.ProductModel", b =>

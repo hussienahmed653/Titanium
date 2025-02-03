@@ -1,4 +1,5 @@
-﻿using Titanium2.Domain.Product;
+﻿using System.Text.Json.Serialization;
+using Titanium2.Domain.Product;
 
 namespace Titanium2.Domain.Stock
 {

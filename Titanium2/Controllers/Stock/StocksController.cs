@@ -15,36 +15,6 @@ namespace Titanium2.Api.Controllers.Stock
             _stockServices = stockServices;
         }
 
-        [HttpGet("GetAllProductInStock")]
-        public async Task<IActionResult> GetAllProductInStock()
-        {
-            try
-            {
-                var alldata = await _stockServices.GetAllData();
-                if (alldata.Count is 0)
-                    return NotFound("No Data Was Found!");
-                return Ok(alldata);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Errorr, {ex.Message}");
-            }
-        }
-        [HttpGet("GetProductInStockByName")]
-        public async Task<IActionResult> GetAllProductsInStockByName(string name)
-        {
-            try
-            {
-                var alldata = await _stockServices.GetAllDataByName(name);
-                if (alldata.Count is 0)
-                    return NotFound("No Data Was Found!");
-                return Ok(alldata);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Errorr, {ex.Message}");
-            }
-        }
         [HttpPost("AddProductIntoStock")]
         public async Task<IActionResult> AddProductInStock(Guid guid, int quantity)
         {

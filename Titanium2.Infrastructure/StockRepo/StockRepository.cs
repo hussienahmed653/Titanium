@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Titanium2.Application.Interfaces.StockInterface;
+using Titanium2.Domain.File;
+using Titanium2.Domain.Product;
 using Titanium2.Domain.Stock;
 using Titanium2.Infrastructure.AppDbContext;
 
@@ -31,20 +33,6 @@ namespace Titanium2.Infrastructure.StockRepo
             };
             await _context.Stock.AddAsync(newstock);
             return await _context.SaveChangesAsync() > 0;
-        }
-
-        public async Task<List<StockModel>> GetAllProductInStock()
-        {
-            return await _context.Stock.Include(s => s.Product)
-                .Where(s => s.Product.ProductId == s.ProductId)
-                .ToListAsync();
-        }
-
-        public async Task<List<StockModel>> GetProductInStockByName(string name)
-        {
-            return await _context.Stock.Include(s => s.Product)
-                .Where(s => s.Product.ProductName == name)
-                .ToListAsync();
         }
 
         public async Task<bool> RemoveProductInStock(Guid guid)
