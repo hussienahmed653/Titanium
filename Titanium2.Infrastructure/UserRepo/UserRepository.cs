@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Titanium2.Application;
-using Titanium2.Domain;
 using Titanium2.Domain.UserRepo;
 using Titanium2.Domain.UsersRoles;
 using Titanium2.Infrastructure.AppDbContext;
