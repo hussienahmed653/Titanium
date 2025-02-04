@@ -69,14 +69,13 @@ namespace Titanium2.Infrastructure.UserRepo
                 }
                 await _context.users.AddAsync(users);
                 var rowsaffected = await _context.SaveChangesAsync();
-                if(rowsaffected == 0)
+                if(rowsaffected is 0)
                     return false;
                 return true;
             }
             catch(Exception ex)
             {
-                Console.WriteLine($"Error, {ex.Message}");
-                return false;
+                throw new Exception($"There is no Role With this id: {users.usersroles}");
             }    
         }
 
@@ -86,16 +85,20 @@ namespace Titanium2.Infrastructure.UserRepo
             {
                 var data = await GetUserByEmail(email);
                 if(data is null)
-                {
-                    Console.WriteLine("No Data Found With This Email!");
-                    return false;
-                }
+                    throw new FileNotFoundException("No Data Found With This Email!");
+
                 var existingroleid = await _context.usersroles.AnyAsync(r => r.RoleId == roleid);
-                if(!existingroleid)
-                {
-                    Console.WriteLine("No RoleId Found");
-                    return false;
-                }
+
+                var thisuserhasroleid = await _context
+                    .usersroles
+                    .AnyAsync(r => r.RoleId == roleid && r.UserId == data.UserId);
+
+                if (!existingroleid)
+                    throw new KeyNotFoundException("No RoleId Found");
+
+                if(thisuserhasroleid)
+                    throw new Exception("This user has this role");
+
                 var role = new UsersRolesModel
                 {
                     UserId = data.UserId,
@@ -109,8 +112,7 @@ namespace Titanium2.Infrastructure.UserRepo
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error, {ex.Message}");
-                return false;
+                throw new Exception($"{ex.Message}");
             }
         }
 
