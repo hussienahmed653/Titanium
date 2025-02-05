@@ -6,7 +6,7 @@ namespace Titanium2.Domain.CartItem
     public class CartItemModel
     {
         public int CartItemId { get; set; }
-        public Guid CartItemGuid { get; set; }
+        public Guid CartItemGuid { get; set; } = Guid.NewGuid();
         public int CartId { get; set; }
         public CartModel Cart { get; set; }
         public int ProductId { get; set; }

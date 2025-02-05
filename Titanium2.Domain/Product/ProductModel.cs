@@ -19,6 +19,7 @@ namespace Titanium2.Domain.Product
         public int CategoryId { get; set; }
         public CategoryModel Category { get; set; }
         public StockModel Stock { get; set; }
+        [JsonIgnore]
         public CartItemModel CartItem { get; set; }
     }
 }

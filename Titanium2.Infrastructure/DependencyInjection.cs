@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Titanium2.Application.DTOs;
 using Titanium2.Application.Interfaces.CartInterface;
+using Titanium2.Application.Interfaces.CartItemInterface;
 using Titanium2.Application.Interfaces.CategoryInterfaces;
 using Titanium2.Application.Interfaces.ImageInterface;
 using Titanium2.Application.Interfaces.JwtInterfaces;
@@ -16,6 +17,7 @@ using Titanium2.Application.Services;
 using Titanium2.Application.Services.JwtRgistrationAndLoginRepo;
 using Titanium2.Domain.UserRepo;
 using Titanium2.Infrastructure.AppDbContext;
+using Titanium2.Infrastructure.CartItemRepo;
 using Titanium2.Infrastructure.CartRepo;
 using Titanium2.Infrastructure.CategoryRepo;
 using Titanium2.Infrastructure.ImageRepo;
@@ -48,6 +50,8 @@ namespace Titanium2.Infrastructure
             services.AddScoped<SocialMediaServices>();
             services.AddScoped<ICartInterface, CartRepository>();
             services.AddScoped<CartServices>();
+            services.AddScoped<ICartItemInterface, CartItemRepository>();
+            services.AddScoped<CartItemServices>();
 
 
             var connection = configuration.GetConnectionString("Defaultconnection");
