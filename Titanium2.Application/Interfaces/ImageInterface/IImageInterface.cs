@@ -1,4 +1,5 @@
-﻿using Titanium2.Domain.File;
+﻿using Titanium2.Application.DTOs;
+using Titanium2.Domain.File;
 
 namespace Titanium2.Application.Interfaces.ImageInterface
 {

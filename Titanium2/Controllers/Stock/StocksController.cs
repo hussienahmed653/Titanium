@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Titanium2.Application.Services;
 
@@ -15,6 +16,7 @@ namespace Titanium2.Api.Controllers.Stock
             _stockServices = stockServices;
         }
 
+        [Authorize(Roles = "1,2")]
         [HttpPost("AddProductIntoStock")]
         public async Task<IActionResult> AddProductInStock(Guid guid, int quantity)
         {
@@ -30,6 +32,7 @@ namespace Titanium2.Api.Controllers.Stock
                 return BadRequest($"Error, {ex.Message}");
             }
         }
+        [Authorize(Roles = "1,2")]
         [HttpPut("UpdateProductIntoStock")]
         public async Task<IActionResult> UpdateProductIntoStock(Guid guid, int quantity)
         {
@@ -45,6 +48,7 @@ namespace Titanium2.Api.Controllers.Stock
                 return BadRequest($"Error, {ex.Message}");
             }
         }
+        [Authorize(Roles = "1")]
         [HttpDelete("DeleteProductFromStock")]
         public async Task<IActionResult> DeleteProductFromStock(Guid guid)
         {

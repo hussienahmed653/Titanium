@@ -16,8 +16,8 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Titanium2.Domain\Titanium2.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Titanium2.Domain\Titanium2.Domain.csproj" />
+	</ItemGroup>
 
 </Project>

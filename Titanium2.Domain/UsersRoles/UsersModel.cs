@@ -1,4 +1,7 @@
-﻿namespace Titanium2.Domain.UsersRoles
+﻿using Titanium2.Domain.Cart;
+using Titanium2.Domain.SocialMedia;
+
+namespace Titanium2.Domain.UsersRoles
 {
     public class UsersModel
     {
@@ -12,5 +15,7 @@
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string Password { get; set; } = string.Empty;
         public ICollection<UsersRolesModel> usersroles { get; set; }
+        public SocialMediaModel SocialMediaModel { get; set; }
+        public CartModel Cart { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Titanium2.Application.DTOs;
 using Titanium2.Application.Interfaces.JwtInterfaces;
 using Titanium2.Domain.UserRepo;
 

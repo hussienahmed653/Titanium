@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Titanium2.Application
+namespace Titanium2.Application.DTOs
 {
     public class ProductDTO
     {

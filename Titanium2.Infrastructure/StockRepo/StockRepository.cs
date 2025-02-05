@@ -39,9 +39,7 @@ namespace Titanium2.Infrastructure.StockRepo
         {
             var havedata = await _context.Stock.SingleOrDefaultAsync(s => s.StockGuid == guid);
             if(havedata is null)
-            {
-                throw new FileNotFoundException();
-            }
+                throw new FileNotFoundException("No Product found in stock!");
             _context.Stock.Remove(havedata);
             return _context.SaveChanges() > 0;
         }

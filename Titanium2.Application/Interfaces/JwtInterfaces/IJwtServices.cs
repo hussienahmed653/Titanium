@@ -1,4 +1,6 @@
-﻿namespace Titanium2.Application.Interfaces.JwtInterfaces
+﻿using Titanium2.Application.DTOs;
+
+namespace Titanium2.Application.Interfaces.JwtInterfaces
 {
     public interface IJwtServices
     {

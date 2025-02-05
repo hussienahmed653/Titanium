@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Titanium2.Api", "Titanium2\Titanium2.Api.csproj", "{4E8D482C-E204-4900-BEC7-10B0ADA7E220}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium2.Api", "Titanium2\Titanium2.Api.csproj", "{4E8D482C-E204-4900-BEC7-10B0ADA7E220}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Titanium2.Infrastructure", "Titanium2.Infrastructure\Titanium2.Infrastructure.csproj", "{F80D98EA-2119-4E31-B009-CA57C6D08BA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium2.Infrastructure", "Titanium2.Infrastructure\Titanium2.Infrastructure.csproj", "{F80D98EA-2119-4E31-B009-CA57C6D08BA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Titanium2.Application", "Titanium2.Application\Titanium2.Application.csproj", "{9353F9A8-FFD6-4DF8-A1C5-50DF8F0BE070}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium2.Application", "Titanium2.Application\Titanium2.Application.csproj", "{9353F9A8-FFD6-4DF8-A1C5-50DF8F0BE070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Titanium2.Domain", "Titanium2.Domain\Titanium2.Domain.csproj", "{1E4E62DA-7ADF-4CB4-A2E2-AB448C1584ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Titanium2.Domain", "Titanium2.Domain\Titanium2.Domain.csproj", "{1E4E62DA-7ADF-4CB4-A2E2-AB448C1584ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

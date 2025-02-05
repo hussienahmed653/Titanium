@@ -17,10 +17,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Titanium2.Application\Titanium2.Application.csproj" />
-    <ProjectReference Include="..\Titanium2.Infrastructure\Titanium2.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Titanium2.Application\Titanium2.Application.csproj" />
+		<ProjectReference Include="..\Titanium2.Infrastructure\Titanium2.Infrastructure.csproj" />
+	</ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\" />

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Channels;
-using Titanium2.Application;
+using Titanium2.Application.DTOs;
 using Titanium2.Application.Interfaces.ImageInterface;
 using Titanium2.Domain.File;
 using Titanium2.Infrastructure.AppDbContext;

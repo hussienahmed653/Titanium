@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Titanium2.Application;
+using Titanium2.Application.DTOs;
 using Titanium2.Application.Interfaces.CategoryInterfaces;
 using Titanium2.Domain.Category;
 using Titanium2.Infrastructure.AppDbContext;

@@ -1,4 +1,5 @@
-﻿using Titanium2.Application.Interfaces.CategoryInterfaces;
+﻿using Titanium2.Application.DTOs;
+using Titanium2.Application.Interfaces.CategoryInterfaces;
 using Titanium2.Domain.Category;
 
 namespace Titanium2.Application.Services

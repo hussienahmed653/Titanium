@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Titanium2.Application;
+using Titanium2.Application.DTOs;
 using Titanium2.Application.Services;
 
 namespace Titanium2.Api.Controllers.Image

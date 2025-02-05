@@ -18,8 +18,8 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Titanium2.Application\Titanium2.Application.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Titanium2.Application\Titanium2.Application.csproj" />
+	</ItemGroup>
 
 </Project>

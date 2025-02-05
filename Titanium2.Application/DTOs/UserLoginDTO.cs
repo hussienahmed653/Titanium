@@ -1,4 +1,4 @@
-﻿namespace Titanium2.Application
+﻿namespace Titanium2.Application.DTOs
 {
     public class UserLoginDTO
     {

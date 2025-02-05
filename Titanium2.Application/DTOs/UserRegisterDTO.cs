@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace Titanium2.Application
+namespace Titanium2.Application.DTOs
 {
     public class UserRegisterDTO
     {

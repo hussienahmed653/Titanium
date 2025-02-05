@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Titanium2.Infrastructure.AppDbContext;
@@ -11,9 +12,11 @@ using Titanium2.Infrastructure.AppDbContext;
 namespace Titanium2.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250205094928_AddSocialMediaAccounts")]
+    partial class AddSocialMediaAccounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,67 +24,6 @@ namespace Titanium2.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Titanium2.Domain.Cart.CartModel", b =>
-                {
-                    b.Property<int>("CartId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CartGuid")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("CartId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("Titanium2.Domain.CartItem.CartItemModel", b =>
-                {
-                    b.Property<int>("CartItemId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CartItemGuid")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("CartItemId");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("CartItems");
-                });
 
             modelBuilder.Entity("Titanium2.Domain.Category.CategoryModel", b =>
                 {
@@ -290,36 +232,6 @@ namespace Titanium2.Infrastructure.Migrations
                     b.ToTable("usersroles");
                 });
 
-            modelBuilder.Entity("Titanium2.Domain.Cart.CartModel", b =>
-                {
-                    b.HasOne("Titanium2.Domain.UsersRoles.UsersModel", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("Titanium2.Domain.Cart.CartModel", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Titanium2.Domain.CartItem.CartItemModel", b =>
-                {
-                    b.HasOne("Titanium2.Domain.Cart.CartModel", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Titanium2.Domain.Product.ProductModel", "Product")
-                        .WithOne("CartItem")
-                        .HasForeignKey("Titanium2.Domain.CartItem.CartItemModel", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Titanium2.Domain.Product.ProductModel", b =>
                 {
                     b.HasOne("Titanium2.Domain.Category.CategoryModel", "Category")
@@ -379,9 +291,6 @@ namespace Titanium2.Infrastructure.Migrations
 
             modelBuilder.Entity("Titanium2.Domain.Product.ProductModel", b =>
                 {
-                    b.Navigation("CartItem")
-                        .IsRequired();
-
                     b.Navigation("Stock")
                         .IsRequired();
                 });
@@ -393,9 +302,6 @@ namespace Titanium2.Infrastructure.Migrations
 
             modelBuilder.Entity("Titanium2.Domain.UsersRoles.UsersModel", b =>
                 {
-                    b.Navigation("Cart")
-                        .IsRequired();
-
                     b.Navigation("SocialMediaModel")
                         .IsRequired();
 

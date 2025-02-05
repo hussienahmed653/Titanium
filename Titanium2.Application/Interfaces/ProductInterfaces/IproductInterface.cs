@@ -1,4 +1,5 @@
-﻿using Titanium2.Domain.Product;
+﻿using Titanium2.Application.DTOs;
+using Titanium2.Domain.Product;
 
 namespace Titanium2.Application.Interfaces.ProductInterfaces
 {
