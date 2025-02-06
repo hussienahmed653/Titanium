@@ -14,6 +14,6 @@ namespace Titanium2.Domain.CartItem
         public int Quantity { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice => (Quantity * Product?.Price ?? 0);
     }
 }

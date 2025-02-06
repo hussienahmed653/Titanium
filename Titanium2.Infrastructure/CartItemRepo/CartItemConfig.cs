@@ -11,6 +11,7 @@ namespace Titanium2.Infrastructure.CartItemRepo
             builder.HasKey(ci => ci.CartItemId);
             builder.Property(ci => ci.CartItemId)
                 .ValueGeneratedNever();
+
         }
     }
 }
