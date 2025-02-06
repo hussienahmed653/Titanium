@@ -118,6 +118,11 @@ namespace Titanium2.Infrastructure.ProductRepo
             return product;
         }
 
+        public async Task<bool> HasProduct(int? productid)
+        {
+            return await _context.Product.AnyAsync(p => p.ProductId == productid);
+        }
+
         public async Task<bool> UpdateProduct(ProductDTO product)
         {
             var myproduct = await _context.Product.AsNoTracking()

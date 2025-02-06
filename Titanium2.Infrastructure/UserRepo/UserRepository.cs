@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Titanium2.Application.DTOs;
 using Titanium2.Domain.UserRepo;
 using Titanium2.Domain.UsersRoles;
 using Titanium2.Infrastructure.AppDbContext;
@@ -142,6 +143,11 @@ namespace Titanium2.Infrastructure.UserRepo
                 Console.WriteLine($"Error, {ex.Message}");
                 return false;
             }
+        }
+
+        public async Task<bool> UserExist(int userid)
+        {
+            return await _context.users.AnyAsync(u => u.UserId == userid);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Titanium2.Application.DTOs;
 using Titanium2.Application.Interfaces.CartInterface;
 using Titanium2.Domain.Cart;
 using Titanium2.Infrastructure.AppDbContext;
@@ -15,21 +14,8 @@ namespace Titanium2.Infrastructure.CartRepo
             _context = context;
         }
 
-        public async Task<bool> AddToCart(CartDTO cartDTO)
+        public async Task<bool> AddToCart(CartModel cart)
         {
-            var lastid = await _context.Carts.AnyAsync() ? await _context.Carts.MaxAsync(c => c.CartId) : 0;
-            var userexist = await _context.users.AnyAsync(u => u.UserId == cartDTO.UserId);
-            var ifcartexist = await _context.Carts.AnyAsync(u => u.UserId == cartDTO.UserId);
-            if (ifcartexist)
-                throw new Exception("This user is already exist");
-            if (!userexist)
-                throw new FileNotFoundException("No user found with this id");
-            var cart = new CartModel
-            {
-                CartId = lastid + 1,
-                CartGuid = Guid.NewGuid(),
-                UserId = cartDTO.UserId,
-            };
             await _context.Carts.AddAsync(cart);
             return await _context.SaveChangesAsync() > 0;
         }
@@ -41,15 +27,29 @@ namespace Titanium2.Infrastructure.CartRepo
                 throw new Exception("No Data Found");
             return data;
         }
-
-        public async Task<bool> RemoveFromCart(Guid guid)
+        public async Task<bool> RemoveFromCart(CartModel cart)
         {
-            var ifexist = await _context.Carts.AnyAsync(c => c.CartGuid == guid);
-            if (!ifexist)
-                throw new FileNotFoundException("No Data found");
-            var data = await _context.Carts.SingleOrDefaultAsync(c => c.CartGuid == guid);
-            _context.Carts.Remove(data);
+            _context.Carts.Remove(cart);
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<int> LastId()
+        {
+            return await _context.Carts.AnyAsync() ? await _context.Carts.MaxAsync(c => c.CartId) : 0;
+        }
+
+        public async Task<bool> IfUserHasCart(int userid)
+        {
+            return await _context.Carts.AnyAsync(u => u.UserId == userid);
+        }
+
+        public async Task<CartModel> GetCartByGuid(Guid guid)
+        {
+            return await _context.Carts.SingleOrDefaultAsync(c => c.CartGuid == guid);
+        }
+        public async Task<bool> HasCart(int? cartid)
+        {
+            return await _context.Carts.AnyAsync(c => c.CartId == cartid);
         }
     }
 }

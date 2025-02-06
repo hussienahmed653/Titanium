@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Titanium2.Application.DTOs;
 using Titanium2.Application.Interfaces.StockInterface;
 using Titanium2.Domain.File;
 using Titanium2.Domain.Product;
@@ -33,6 +34,12 @@ namespace Titanium2.Infrastructure.StockRepo
             };
             await _context.Stock.AddAsync(newstock);
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> IfQuantityIsValid(int? productid, int? quantity)
+        {
+            return await _context.Stock.Where(s => s.ProductId == productid)
+                                       .AnyAsync(s => s.Quantity >= quantity);
         }
 
         public async Task<bool> RemoveProductInStock(Guid guid)
