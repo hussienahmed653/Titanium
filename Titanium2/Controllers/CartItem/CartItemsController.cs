@@ -48,7 +48,7 @@ namespace Titanium2.Api.Controllers.CartItem
         {
             try
             {
-                var updated = await _services.UpdateCart(cartItemDTO.CartItemGuid, cartItemDTO.ProductId, cartItemDTO.Quantity);
+                var updated = await _services.UpdateCart(cartItemDTO.CartItemGuid, cartItemDTO.Quantity);
                 if (updated)
                     return Ok("Updated successfully");
                 return BadRequest("Can't update cartitem");

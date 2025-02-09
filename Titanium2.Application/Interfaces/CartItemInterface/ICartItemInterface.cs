@@ -12,5 +12,6 @@ namespace Titanium2.Application.Interfaces.CartItemInterface
         // دول الي انا هستخدمم في اماكن تانيه في ال services
         public Task<int> GetLastId();
         public Task<CartItemModel> GetCartItemByGuid(Guid guid);
+        public Task<bool> IfCartIdAndProductIsAlreadyExist(int cartid, int productid);
     }
 }

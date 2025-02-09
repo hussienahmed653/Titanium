@@ -12,5 +12,6 @@ namespace Titanium2.Application.Interfaces.ProductInterfaces
         public Task<bool> DeleteProduct(Guid guid);
         // دول الي انا هستخدمم في اماكن تانيه في ال services
         public Task<bool> HasProduct(int? productid);
+        public Task<ProductModel> GetProductByGuid(Guid guid);
     }
 }

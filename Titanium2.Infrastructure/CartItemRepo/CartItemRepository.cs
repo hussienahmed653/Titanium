@@ -58,5 +58,10 @@ namespace Titanium2.Infrastructure.CartItemRepo
         {
             return await _context.CartItems.SingleOrDefaultAsync(c => c.CartItemGuid == guid);
         }
+
+        public async Task<bool> IfCartIdAndProductIsAlreadyExist(int cartid, int productid)
+        {
+            return await _context.CartItems.AnyAsync(c => c.CartId == cartid && c.ProductId == productid);
+        }
     }
 }

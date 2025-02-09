@@ -83,6 +83,13 @@ namespace Titanium2.Infrastructure.ProductRepo
             return products;
         }
 
+        public async Task<ProductModel> GetProductByGuid(Guid guid)
+        {
+            return await _context.Product
+                .Include(p => p.Category)
+                .SingleOrDefaultAsync(p => p.ProductGuid == guid);
+        }
+
         public async Task<ProductModel> GetProductByName(string name)
         {
             var product = await _context.Product
