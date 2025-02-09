@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Titanium2.Application.DTOs;
 using Titanium2.Application.Services;
 
@@ -36,6 +37,10 @@ namespace Titanium2.Api.Controllers.Cart
         {
             try
             {
+                var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if(userid is null)
+                    return BadRequest("Please Login First");
+                cartDTO.UserId = int.Parse(userid);
                 var added = await _cartServices.AddCarts(cartDTO);
                 if(!added)
                     return BadRequest("Can't add into cart!");

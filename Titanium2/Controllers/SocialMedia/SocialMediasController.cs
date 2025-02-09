@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Titanium2.Application.DTOs;
 using Titanium2.Application.Services;
 
@@ -21,6 +21,10 @@ namespace Titanium2.Api.Controllers.SocialMedia
         {
             try
             {
+                var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userid is null)
+                    return BadRequest("Please Login First");
+                socialMediaDTO.UsersId = int.Parse(userid);
                 var added = await _socialMediaServices.AddSocialMediaAcoount(socialMediaDTO);
                 if (!added)
                     return BadRequest("Can't add");
@@ -36,6 +40,10 @@ namespace Titanium2.Api.Controllers.SocialMedia
         {
             try
             {
+                var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userid is null)
+                    return BadRequest("Please Login First");
+                socialMediaDTO.UsersId = int.Parse(userid);
                 var updated = await _socialMediaServices.UpdateSocialMediaAcoount(socialMediaDTO);
                 if (!updated)
                     return BadRequest("Can't update");

@@ -4,10 +4,13 @@ namespace Titanium2.Application.Interfaces.StockInterface
 {
     public interface ISockInterface
     {
-        public Task<bool> AddProductInStock(Guid guid, int quantity);
-        public Task<bool> UpdateProductInStock(Guid guid, int quantity);
-        public Task<bool> RemoveProductInStock(Guid guid);
+        public Task<bool> AddProductInStock(StockModel stock);
+        public Task<bool> UpdateProductInStock(StockModel stock);
+        public Task<bool> RemoveProductInStock(StockModel stock);
         // دول الي انا هستخدمم في اماكن تانيه في ال services
         public Task<bool> IfQuantityIsValid(int? productid, int? quantity);
+        public Task<int> LastId();
+        public Task<bool> IsThisProductExistInStock(int productid);
+        public Task<StockModel> GetStockByGuid(Guid guid);
     }
 }

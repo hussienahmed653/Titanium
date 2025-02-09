@@ -16,51 +16,45 @@ namespace Titanium2.Infrastructure.SocialMediaRepo
             _context = context;
         }
 
-        public async Task<bool> AddSocialMediaAcoount(SocialMediaDTO socialMediaDTO)
+        public async Task<bool> AddSocialMediaAcoount(SocialMediaModel socialMedia)
         {
             try
             {
-                var lastid = await _context.SocialMedias.AnyAsync() ? await _context.SocialMedias.MaxAsync(sm => sm.SocialMediaId) : 0;
-                var useridiscorrect = await _context.users.AnyAsync(u => u.UserId == socialMediaDTO.UsersId);
-                if (!useridiscorrect)
-                    throw new FileNotFoundException($"No user found with this id: {socialMediaDTO.UsersId}");
-                var SocialMediaAcoount = new SocialMediaModel
-                {
-                    SocialMediaId = lastid + 1,
-                    UsersId = socialMediaDTO.UsersId,
-                    Facebook = socialMediaDTO.Facebook,
-                    Instagram = socialMediaDTO.Instagram,
-                    Whatsapp = socialMediaDTO.Whatsapp,
-                };
-                await _context.SocialMedias.AddAsync(SocialMediaAcoount);
+                await _context.SocialMedias.AddAsync(socialMedia);
                 return await _context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error, {ex.Message}");
+                throw new Exception($"{ex.Message}");
             }
 
         }
-
-        public async Task<bool> RemoveSocialMediaAcoount(Guid guid)
+        public async Task<bool> RemoveSocialMediaAcoount(SocialMediaModel socialMedia)
         {
-            var data = await _context.SocialMedias.SingleOrDefaultAsync(sm => sm.SocialMediaGuid == guid);
-            if (data is null)
-                throw new FileNotFoundException("No socialmedia found");
-            _context.SocialMedias.Remove(data);
+            _context.SocialMedias.Remove(socialMedia);
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> UpdateSocialMediaAcoount(SocialMediaDTO socialMediaDTO)
+        public async Task<bool> UpdateSocialMediaAcoount(SocialMediaModel socialMedia)
         {
-            var data = await _context.SocialMedias
-                .SingleOrDefaultAsync(sm => sm.SocialMediaGuid == socialMediaDTO.SocialMediaGuid);
-
-            data.Facebook = !string.IsNullOrEmpty(socialMediaDTO.Facebook) ? socialMediaDTO.Facebook : data.Facebook;
-            data.Instagram = !string.IsNullOrEmpty(socialMediaDTO.Instagram) ? socialMediaDTO.Instagram : data.Instagram;
-            data.Whatsapp = !string.IsNullOrEmpty(socialMediaDTO.Whatsapp) ? socialMediaDTO.Whatsapp : data.Whatsapp;
-            _context.SocialMedias.Update(data);
+            _context.SocialMedias.Update(socialMedia);
             return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<int> LastId()
+        {
+            return await _context.SocialMedias.AnyAsync() ? await _context.SocialMedias.MaxAsync(sm => sm.SocialMediaId) : 0;
+        }
+
+        public async Task<SocialMediaModel> GetSocialMediaByGuid(Guid guid)
+        {
+            return await _context.SocialMedias
+                .SingleOrDefaultAsync(sm => sm.SocialMediaGuid == guid);
+        }
+
+        public async Task<SocialMediaModel> GetSocialMediaByUserId(int userid)
+        {
+            return await _context.SocialMedias
+                .SingleOrDefaultAsync(sm => sm.UsersId == userid);
         }
     }
 }

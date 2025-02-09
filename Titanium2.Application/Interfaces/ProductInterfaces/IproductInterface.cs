@@ -7,10 +7,11 @@ namespace Titanium2.Application.Interfaces.ProductInterfaces
     {
         public Task<List<ProductModel>> GetAllProducts();
         public Task<ProductModel> GetProductByName(string name);
-        public Task<bool> AddProduct(ProductDTO product);
-        public Task<bool> UpdateProduct(ProductDTO product);
-        public Task<bool> DeleteProduct(Guid guid);
+        public Task<bool> AddProduct(ProductModel product);
+        public Task<bool> UpdateProduct(ProductModel product);
+        public Task<bool> DeleteProduct(ProductModel product);
         // دول الي انا هستخدمم في اماكن تانيه في ال services
+        public Task<int> LastId();
         public Task<bool> HasProduct(int? productid);
         public Task<ProductModel> GetProductByGuid(Guid guid);
     }

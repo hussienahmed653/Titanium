@@ -20,31 +20,16 @@ namespace Titanium2.Infrastructure.ProductRepo
             _context = context;
         }
 
-        public async Task<bool> AddProduct(ProductDTO product)
+        public async Task<bool> AddProduct(ProductModel product)
         {
-            var lastid = await _context.Product.AnyAsync() ? await _context.Product.MaxAsync(p => p.ProductId) : 0;
-            var newproduct = new ProductModel
-            {
-                ProductId = lastid + 1,
-                ProductName = product.ProductName,
-                Description = product.Description,
-                Price = product.Price,
-                CategoryId = product.CategoryId,
-            };
-            await _context.Product.AddAsync(newproduct);
+            await _context.Product.AddAsync(product);
             return _context.SaveChanges() > 0;
         }
 
-        public async Task<bool> DeleteProduct(Guid guid)
+        public async Task<bool> DeleteProduct(ProductModel data)
         {
-            var data = await _context.Product.SingleOrDefaultAsync(p => p.ProductGuid == guid);
-            if (data is null)
-            {
-                throw new ArgumentNullException($"No Product found with this guid: {guid}");
-            }
             _context.Product.Remove(data);
             return _context.SaveChanges() > 0;
-
         }
 
         public async Task<List<ProductModel>> GetAllProducts()
@@ -82,14 +67,6 @@ namespace Titanium2.Infrastructure.ProductRepo
                 .ToListAsync();
             return products;
         }
-
-        public async Task<ProductModel> GetProductByGuid(Guid guid)
-        {
-            return await _context.Product
-                .Include(p => p.Category)
-                .SingleOrDefaultAsync(p => p.ProductGuid == guid);
-        }
-
         public async Task<ProductModel> GetProductByName(string name)
         {
             var product = await _context.Product
@@ -124,24 +101,26 @@ namespace Titanium2.Infrastructure.ProductRepo
                 .FirstOrDefaultAsync();
             return product;
         }
+        public async Task<bool> UpdateProduct(ProductModel product)
+        {
+            _context.Product.Update(product);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
 
         public async Task<bool> HasProduct(int? productid)
         {
             return await _context.Product.AnyAsync(p => p.ProductId == productid);
         }
-
-        public async Task<bool> UpdateProduct(ProductDTO product)
+        public async Task<ProductModel> GetProductByGuid(Guid guid)
         {
-            var myproduct = await _context.Product.AsNoTracking()
-                .SingleOrDefaultAsync(p => p.ProductGuid == product.ProductGuid);
-
-            myproduct.ProductId = myproduct.ProductId;
-            myproduct.ProductName = !string.IsNullOrEmpty(product.ProductName) ? product.ProductName : myproduct.ProductName;
-            myproduct.Description = !string.IsNullOrEmpty(product.Description) ? product.Description : myproduct.Description;
-            myproduct.Price = product.Price > 0 ? product.Price : myproduct.Price;
-            myproduct.CategoryId = product.CategoryId > 0 ? product.CategoryId : myproduct.CategoryId;
-            _context.Product.Update(myproduct);
-            return await _context.SaveChangesAsync() > 0;
+            return await _context.Product
+                .Include(p => p.Category)
+                .SingleOrDefaultAsync(p => p.ProductGuid == guid);
+        }
+        public async Task<int> LastId()
+        {
+            return await _context.Product.AnyAsync() ? await _context.Product.MaxAsync(p => p.ProductId) : 0;
         }
     }
 }
