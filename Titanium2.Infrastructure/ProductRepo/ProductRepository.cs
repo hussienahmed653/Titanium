@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Xml.Linq;
-using Titanium2.Application.DTOs;
-using Titanium2.Application.Interfaces.ImageInterface;
 using Titanium2.Application.Interfaces.ProductInterfaces;
 using Titanium2.Domain.File;
 using Titanium2.Domain.Product;
@@ -121,6 +117,11 @@ namespace Titanium2.Infrastructure.ProductRepo
         public async Task<int> LastId()
         {
             return await _context.Product.AnyAsync() ? await _context.Product.MaxAsync(p => p.ProductId) : 0;
+        }
+
+        public async Task<ProductModel> GetProductById(int productid)
+        {
+            return await _context.Product.SingleOrDefaultAsync(p => p.ProductId == productid);
         }
     }
 }

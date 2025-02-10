@@ -1,4 +1,6 @@
-﻿using Titanium2.Domain.Cart;
+﻿using System.Reflection.Metadata.Ecma335;
+using Titanium2.Domain.Cart;
+using Titanium2.Domain.Favorites;
 using Titanium2.Domain.SocialMedia;
 
 namespace Titanium2.Domain.UsersRoles
@@ -17,5 +19,6 @@ namespace Titanium2.Domain.UsersRoles
         public ICollection<UsersRolesModel> usersroles { get; set; }
         public SocialMediaModel SocialMediaModel { get; set; }
         public CartModel Cart { get; set; }
+        public List<FavoritesModel> Favorites { get; set; }
     }
 }

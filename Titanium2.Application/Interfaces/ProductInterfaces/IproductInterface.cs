@@ -14,5 +14,6 @@ namespace Titanium2.Application.Interfaces.ProductInterfaces
         public Task<int> LastId();
         public Task<bool> HasProduct(int? productid);
         public Task<ProductModel> GetProductByGuid(Guid guid);
+        public Task<ProductModel> GetProductById(int productid);
     }
 }

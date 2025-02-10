@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using Titanium2.Domain.CartItem;
 using Titanium2.Domain.Category;
+using Titanium2.Domain.Favorites;
 using Titanium2.Domain.File;
 using Titanium2.Domain.Stock;
 
@@ -21,5 +22,7 @@ namespace Titanium2.Domain.Product
         public StockModel Stock { get; set; }
         [JsonIgnore]
         public CartItemModel CartItem { get; set; }
+        [JsonIgnore]
+        public List<FavoritesModel> Favorites { get; set; }
     }
 }

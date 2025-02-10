@@ -3,6 +3,7 @@ using System.Reflection;
 using Titanium2.Domain.Cart;
 using Titanium2.Domain.CartItem;
 using Titanium2.Domain.Category;
+using Titanium2.Domain.Favorites;
 using Titanium2.Domain.File;
 using Titanium2.Domain.Product;
 using Titanium2.Domain.SocialMedia;
@@ -33,5 +34,6 @@ namespace Titanium2.Infrastructure.AppDbContext
         public DbSet<SocialMediaModel> SocialMedias { get; set; }
         public DbSet<CartModel> Carts { get; set; }
         public DbSet<CartItemModel> CartItems { get; set; }
+        public DbSet<FavoritesModel> Favorites { get; set; }
     }
 }
